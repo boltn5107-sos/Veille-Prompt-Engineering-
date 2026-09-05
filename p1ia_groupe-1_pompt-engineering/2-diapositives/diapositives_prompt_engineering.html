@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veille Prompt Engineering - P1IA Groupe 1</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body { font-family:"Segoe UI", Calibri, Arial, sans-serif; overflow:hidden; background:#0f2033; }
+  .deck { position:relative; width:100vw; height:100vh; }
+  .slide {
+    position:absolute; inset:0; display:none; flex-direction:column;
+    background:#ffffff; padding:48px 80px 40px 80px; color:#334455;
+  }
+  .slide.active { display:flex; }
+  .bar { position:absolute; top:0; left:0; right:0; height:62px; background:#1a3a5c; display:flex; align-items:center; padding:0 40px; }
+  .bar .t { color:#fff; font-size:28px; font-weight:700; }
+  .bar .n { color:#e88b2a; font-weight:800; margin-left:16px; font-size:22px; }
+  .bar .acc { color:#7fa6c4; margin-left:auto; font-size:14px; }
+  .bar-line { position:absolute; top:62px; left:0; right:0; height:5px; background:#e88b2a; }
+  .num { margin-top:100px; font-size:16px; font-weight:700; color:#e88b2a; }
+  .title { font-size:42px; font-weight:800; color:#1a3a5c; margin-top:6px; }
+  .sub { font-size:20px; color:#2c5f8a; margin-top:10px; font-weight:600; }
+  ul { margin-top:28px; list-style:none; }
+  li { font-size:22px; line-height:1.55; margin-bottom:14px; padding-left:30px; position:relative; }
+  li:before { content:"\2022"; color:#e88b2a; font-weight:900; position:absolute; left:4px; font-size:26px; }
+  .grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:24px; }
+  .cell { background:#f2f4f7; border-top:6px solid #2c5f8a; padding:14px; min-height:140px; }
+  .cell h3 { color:#1a3a5c; font-size:18px; margin-bottom:8px; }
+  .cell p { font-size:13px; line-height:1.4; }
+  .cols3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin-top:28px; }
+  .box { background:#f2f4f7; border-radius:6px; min-height:340px; }
+  .box .head { color:#fff; font-size:18px; font-weight:700; padding:12px 16px; border-radius:6px 6px 0 0; }
+  .box .body { padding:16px; font-size:15px; line-height:1.55; white-space:pre-wrap; font-family:"Consolas","Courier New",monospace; }
+  .o .head { background:#e88b2a; } .s .head { background:#2c5f8a; } .e .head { background:#1a3a5c; }
+  table { width:100%; border-collapse:collapse; margin-top:26px; font-size:18px; }
+  th { background:#1a3a5c; color:#fff; padding:10px; text-align:left; }
+  td { border:1px solid #c6ccd4; padding:10px; }
+  tr:nth-child(even) td { background:#eef2f6; }
+  .example { background:#f2f4f7; border-left:6px solid #e88b2a; padding:18px; margin-top:24px; font-size:16px; line-height:1.6; white-space:pre-wrap; font-family:"Consolas","Courier New",monospace; }
+  .hint { position:fixed; bottom:16px; right:24px; z-index:50; color:#7fa6c4; font-size:13px; background:#0f2033; padding:8px 12px; border-radius:4px; }
+  .wing { position:fixed; bottom:140px; right:24px; z-index:50; color:#e88b2a; font-size:20px; }
+  @media (max-width:900px){ .slide{padding:30px 20px;} .cols3{grid-template-columns:1fr;} li{font-size:18px;} .title{font-size:30px;} }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+  <div class="hint">&#8592; &#8594; pour naviguer</div>
+  <div class="wing" id="page">1 / 17</div>
+
+  <!-- 1. Titre -->
+  <section class="slide active">
+    <div class="bar"><div class="t">Veille Prompt Engineering</div><div class="acc">P1IA Groupe 1</div></div>
+    <div class="bar-line"></div>
+    <div style="margin-top:220px; text-align:center;">
+      <div class="title">Veille Prompt Engineering</div>
+      <div class="sub" style="color:#2c5f8a;">Mieux rédiger pour mieux générer</div>
+      <div style="margin-top:24px; font-size:18px; color:#e88b2a; font-weight:700;">P1IA  &ndash;  Groupe 1  &ndash;  Septembre 2026</div>
+    </div>
+  </section>
+
+  <!-- 2. Sommaire -->
+  <section class="slide">
+    <div class="bar"><div class="t">Sommaire</div></div><div class="bar-line"></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:70px;">
+      <ul>
+        <li>1. Prérequis sur les LLM</li><li>2. Introduction au Prompt Engineering</li>
+        <li>3. Structure d'un prompt</li><li>4. Techniques de prompting</li>
+        <li>5. Prompt Engineering et raisonnement</li><li>6. Sorties structurées</li>
+      </ul>
+      <ul>
+        <li>7. Prompts pour les applications métier</li><li>8. Prompts pour le Machine Learning</li>
+        <li>9. Prompt Engineering et RAG</li><li>10. Évaluation et optimisation</li>
+        <li>11. Limites et risques</li><li>12. Références</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Chapitre 1 -->
+  <section class="slide">
+    <div class="bar"><div class="n">1</div><div class="t">Prérequis sur les LLM</div></div><div class="bar-line"></div>
+    <ul>
+      <li><b>LLM</b> = prédit le mot suivant, entraîné sur d'énormes volumes de texte</li>
+      <li><b>Contexte</b> = tout le texte déjà présent (prompt + conversation)</li>
+      <li><b>Token</b> = unité de base (100 tokens &#8776; 75 mots)</li>
+      <li><b>Fenêtre de contexte</b> = taille max en tokens (entrée + sortie)</li>
+      <li><b>Temperature</b> = hasard (0 fiable &rarr; 1 créatif)</li>
+      <li><b>max tokens</b> = limite de longueur de la sortie</li>
+      <li><b>top-p / top-k</b> = filtrent les choix probables</li>
+      <li><b>stop sequences</b> = arrêt automatique de la génération</li>
+    </ul>
+  </section>
+
+  <!-- 4. Chapitre 2 -->
+  <section class="slide">
+    <div class="bar"><div class="n">2</div><div class="t">Introduction au Prompt Engineering</div></div><div class="bar-line"></div>
+    <div class="sub">Un prompt = la seule façon de piloter un LLM</div>
+    <ul>
+      <li><b>Prompt</b> = instruction donnée à l'IA (question, ordre, texte à transformer)</li>
+      <li><b>Prompt Engineering</b> = concevoir, tester, améliorer les prompts</li>
+      <li><b>Pourquoi ?</b> qualité des réponses, temps gagné, moins d'erreurs</li>
+      <li>Permet d'<b>industrialiser l'IA</b> dans les applications métier</li>
+    </ul>
+  </section>
+
+  <!-- 5. Chapitre 3 : structure -->
+  <section class="slide">
+    <div class="bar"><div class="n">3</div><div class="t">Structure d'un prompt</div></div><div class="bar-line"></div>
+    <div class="grid">
+      <div class="cell"><h3>RÔLE</h3><p>qui est le modèle ?<br>ex. expert CA</p></div>
+      <div class="cell"><h3>CONTEXTE</h3><p>situation, public, limites</p></div>
+      <div class="cell"><h3>TÂCHE</h3><p>verbe d'action<br>&laquo; r&eacute;sume &raquo;, &laquo; classe &raquo;</p></div>
+      <div class="cell"><h3>DONNÉES</h3><p>le texte à traiter, bien délimité</p></div>
+      <div class="cell"><h3>CONTRAINTES</h3><p>longueur, ton, style, interdits</p></div>
+      <div class="cell"><h3>FORMAT</h3><p>JSON, puces, tableau...</p></div>
+    </div>
+    <div class="example">Tu es un analyste financier.  &rarr;  RÔLE
+Synthèse pour un PDG non technique.  &rarr;  CONTEXTE
+Résume ce rapport trimestriel.  &rarr;  TÂCHE
+Rapport : &lt;&lt;&lt;texte&gt;&gt;&gt;  &rarr;  DONNÉES
+Max 8 lignes, sans jargon.  &rarr;  CONTRAINTES
+Format : 3 puces + 1 conclusion.  &rarr;  FORMAT</div>
+  </section>
+
+  <!-- 6. Zero-shot -->
+  <section class="slide">
+    <div class="bar"><div class="n">4</div><div class="t">Zero-shot prompting</div></div><div class="bar-line"></div>
+    <div class="cols3">
+      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">Aucun exemple donné. Le modèle mobilise directement son entraînement.</div></div>
+      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">Décrire la tâche + fournir l'entrée.
+&laquo; Fais X sur Y &raquo;.</div></div>
+      <div class="box e"><div class="head">EXEMPLE</div><div class="body">&laquo; Classe le sentiment de ce commentaire (positif / négatif / neutre) :
+&laquo; Le produit est arrivé cassé. &raquo; &raquo;</div></div>
+    </div>
+  </section>
+
+  <!-- 7. One-shot -->
+  <section class="slide">
+    <div class="bar"><div class="n">4</div><div class="t">One-shot prompting</div></div><div class="bar-line"></div>
+    <div class="cols3">
+      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">Un seul exemple montre au modèle le format ou le style attendu.</div></div>
+      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">Tâche + 1 exemple (entr&eacute;e -&gt; sortie) + nouvelle entr&eacute;e.</div></div>
+      <div class="box e"><div class="head">EXEMPLE</div><div class="body">Convertis un titre de film en emojis.
+Exemple : &laquo; Jaws &raquo; -&gt; [requin]
+&laquo; Titanic &raquo; -&gt; ?</div></div>
+    </div>
+  </section>
+
+  <!-- 8. Few-shot -->
+  <section class="slide">
+    <div class="bar"><div class="n">4</div><div class="t">Few-shot prompting</div></div><div class="bar-line"></div>
+    <div class="cols3">
+      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">2 &agrave; 5 exemples : le mod&egrave;le apprend le &laquo; sch&eacute;ma &raquo; et l'applique.</div></div>
+      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">T&acirc;che + exemples A -&gt; B + nouvelle entr&eacute;e -&gt; ?</div></div>
+      <div class="box e"><div class="head">EXEMPLE</div><div class="body">Classe : Travail / Personnel / Spam
+&laquo; -50% ce week-end ! &raquo; -&gt; Spam
+&laquo; Budget Q2 ? &raquo; -&gt; Travail
+&laquo; Recette de tarte &raquo; -&gt; ?</div></div>
+    </div>
+  </section>
+
+  <!-- 9. CoT -->
+  <section class="slide">
+    <div class="bar"><div class="n">4</div><div class="t">Chain-of-Thought (CoT)</div></div><div class="bar-line"></div>
+    <div class="cols3">
+      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">Imposer un raisonnement pas &agrave; pas pour fiabiliser les r&eacute;ponses.</div></div>
+      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">Ajouter &laquo; Raisonne &eacute;tape par &eacute;tape &raquo; &agrave; la fin du prompt.</div></div>
+      <div class="box e"><div class="head">EXEMPLE</div><div class="body">Train depuis Paris : 120 km/h.
+Train depuis Lyon : 90 km/h.
+Distance : 470 km.
+&laquo; Raisonne &eacute;tape par &eacute;tape. &raquo;</div></div>
+    </div>
+  </section>
+
+  <!-- 10. Structured -->
+  <section class="slide">
+    <div class="bar"><div class="n">4</div><div class="t">Structured prompting</div></div><div class="bar-line"></div>
+    <div class="cols3">
+      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">Sortie contrainte &agrave; un format = exploitable par un programme.</div></div>
+      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">Imposer le format dans le prompt :
+&laquo; R&eacute;ponds uniquement en JSON, sans texte autour. &raquo;</div></div>
+      <div class="box e"><div class="head">EXEMPLE</div><div class="body">{
+  "resume": "...",
+  "mots_cles": ["..."],
+  "confiance": 0.9
+}</div></div>
+    </div>
+  </section>
+
+  <!-- 11. Chapitre 5 -->
+  <section class="slide">
+    <div class="bar"><div class="n">5</div><div class="t">Prompt Engineering et raisonnement</div></div><div class="bar-line"></div>
+    <div class="sub">2 techniques d'or pour la logique et la synthèse</div>
+    <ul>
+      <li><b>Décomposition</b> : découper un problème complexe en sous-tâches simples</li>
+      <li>Chaque sous-tâche est traitée séparément, puis on assemble</li>
+      <li><b>Self-check</b> : le modèle relit, critique puis corrige sa propre réponse</li>
+      <li><b>Double-pass</b> : réponse 1 &rarr; critique &rarr; réponse 2 corrigée</li>
+    </ul>
+  </section>
+
+  <!-- 12. Chapitre 6 -->
+  <section class="slide">
+    <div class="bar"><div class="n">6</div><div class="t">Sorties structurées</div></div><div class="bar-line"></div>
+    <ul>
+      <li><b>Pourquoi ?</b> exploitation automatique, comparaison, moins d'oublis</li>
+      <li><b>JSON</b> : passage aux applications (API, automatisation)</li>
+      <li><b>XML</b> : documents, échanges normalisés</li>
+      <li><b>Tables Markdown / CSV</b> : exports Excel</li>
+      <li><b>Validation</b> : le code vérifie le format ; le modèle relit face au schéma</li>
+    </ul>
+  </section>
+
+  <!-- 13. Chapitre 7 -->
+  <section class="slide">
+    <div class="bar"><div class="n">7</div><div class="t">Prompts pour les applications métier</div></div><div class="bar-line"></div>
+    <table>
+      <tr><th>Application</th><th>Prompt type</th></tr>
+      <tr><td><b>Résumé</b></td><td>&laquo; Résume en 3 puces, garde les chiffres clés &raquo;</td></tr>
+      <tr><td><b>Traduction</b></td><td>&laquo; Traduis en anglais pro, garde les nombres &raquo;</td></tr>
+      <tr><td><b>Classification</b></td><td>&laquo; Classe : bug / question / feature &raquo;</td></tr>
+      <tr><td><b>Extraction</b></td><td>&laquo; Extrais nom, date, montant &rarr; JSON &raquo;</td></tr>
+      <tr><td><b>Génération</b></td><td>&laquo; Rédige un mail de relance, 150 mots, ton courtois &raquo;</td></tr>
+      <tr><td><b>Code</b></td><td>&laquo; Écris une fonction Python qui calcule une moyenne &raquo;</td></tr>
+    </table>
+  </section>
+
+  <!-- 14. Chapitre 8 -->
+  <section class="slide">
+    <div class="bar"><div class="n">8</div><div class="t">Prompts pour le Machine Learning</div></div><div class="bar-line"></div>
+    <ul>
+      <li><b>Préparation</b> : nettoyage, doublons, normalisation des dates</li>
+      <li><b>Visualisation</b> : demander le code matplotlib adapté aux données</li>
+      <li><b>Sélection de modèles</b> : faire comparer plusieurs familles de modèles</li>
+      <li><b>Interprétation</b> : expliquer matrice de confusion, précision, rappel</li>
+    </ul>
+  </section>
+
+  <!-- 15. Chapitre 9 -->
+  <section class="slide">
+    <div class="bar"><div class="n">9</div><div class="t">Prompt Engineering et RAG</div></div><div class="bar-line"></div>
+    <div class="sub" style="margin-top:20px;">Le prompting seul ne suffit pas : le modèle ignore vos documents et l'actualité.</div>
+    <div class="cols3" style="margin-top:20px; min-height:auto;">
+      <div class="box o" style="min-height:180px;"><div class="head">1. RECHERCHE</div><div class="body">Chercher les passages pertinents dans une base de documents (retrieval).</div></div>
+      <div class="box s" style="min-height:180px;"><div class="head">2. AUGMENTATION</div><div class="body">Ins&eacute;rer ces extraits dans le prompt.</div></div>
+      <div class="box e" style="min-height:180px;"><div class="head">3. GÉNÉRATION</div><div class="body">Le mod&egrave;le r&eacute;pond uniquement &agrave; partir des extraits cit&eacute;s.</div></div>
+    </div>
+    <div class="example">« Réponds UNIQUEMENT à partir des extraits ci-dessous.
+Si absent : "Information introuvable."
+Extraits : <<<doc1 >>> <<<doc2 >>>    Question : ...
+200 mots max, cite tes sources. »</div>
+  </section>
+
+  <!-- 16. Chapitre 10 -->
+  <section class="slide">
+    <div class="bar"><div class="n">10</div><div class="t">Évaluation et optimisation des prompts</div></div><div class="bar-line"></div>
+    <ul>
+      <li><b>Pourquoi</b> : un prompt &laquo; qui marche une fois &raquo; peut échouer ailleurs</li>
+      <li><b>Mesurer</b> : exactitude, exhaustivité, format, absence d'hallucination</li>
+      <li><b>Comparer</b> : A/B testing sur les mêmes entrées, grille de notation</li>
+      <li><b>Itérer</b> : écrire &rarr; tester &rarr; repérer les erreurs &rarr; corriger &rarr; re-tester</li>
+      <li><b>Versionner</b> : garder les versions (v1, v2, ...)</li>
+    </ul>
+  </section>
+
+  <!-- 17. Chapitre 11 -->
+  <section class="slide">
+    <div class="bar"><div class="n">11</div><div class="t">Limites et risques</div></div><div class="bar-line"></div>
+    <ul>
+      <li><b>Hallucinations</b> : réponses fausses mais assurées &nbsp;&rarr;&nbsp; RAG + citations</li>
+      <li><b>Ambiguïté</b> : prompt flou = réponse au hasard &nbsp;&rarr;&nbsp; préciser tout</li>
+      <li><b>Biais</b> : stéréotypes reproduits &nbsp;&rarr;&nbsp; relecture humaine</li>
+      <li><b>Confidentialité</b> : les données partent chez le fournisseur &nbsp;&rarr;&nbsp; anonymiser</li>
+      <li><b>Injection de prompt</b> : les données détournent les instructions &nbsp;&rarr;&nbsp; séparer</li>
+      <li><b>Jailbreak</b> : contourner les garde-fous &nbsp;&rarr;&nbsp; supervision</li>
+    </ul>
+  </section>
+
+  <!-- 18. Chapitre 12 -->
+  <section class="slide">
+    <div class="bar"><div class="n">12</div><div class="t">Références</div></div><div class="bar-line"></div>
+    <ul style="font-size:20px;">
+      <li>OpenAI : platform.openai.com/docs/guides/prompt-engineering</li>
+      <li>Anthropic : docs.anthropic.com (Prompt Engineering Overview)</li>
+      <li>Google / Gemini : ai.google.dev/gemini-api/docs/prompting-intro</li>
+      <li>Prompt Engineering Guide (DAIR AI) : promptingguide.ai</li>
+      <li>Microsoft Azure OpenAI : learn.microsoft.com (prompt engineering)</li>
+      <li>ArXiv &laquo; Chain-of-Thought Prompting &raquo; (Wei et al. 2022) : arxiv.org/abs/2201.11903</li>
+      <li>ArXiv &laquo; Retrieval-Augmented Generation &raquo; (Lewis et al. 2020) : arxiv.org/abs/2005.11401</li>
+      <li>Dossier cheat-sheets du livrable (sources web fichées)</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+  var slides = document.querySelectorAll('.slide');
+  var i = 0;
+  var page = document.getElementById('page');
+  function show(n){
+    slides[i].classList.remove('active');
+    i = (n + slides.length) % slides.length;
+    slides[i].classList.add('active');
+    page.textContent = (i+1) + ' / ' + slides.length;
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === ' ') show(i+1);
+    if(e.key === 'ArrowLeft') show(i-1);
+  });
+  document.querySelector('.deck').addEventListener('click', show.bind(null, i+1));
+</script>
+</body>
+</html>
