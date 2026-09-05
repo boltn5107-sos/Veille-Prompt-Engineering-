@@ -1,0 +1,3 @@
+# Empêche Git de normaliser les fins de ligne des fichiers binaires
+*.pdf binary
+*.pptx binary
