@@ -9,305 +9,489 @@
   html, body { height:100%; }
   body { font-family:"Segoe UI", Calibri, Arial, sans-serif; overflow:hidden; background:#0f2033; }
   .deck { position:relative; width:100vw; height:100vh; }
-  .slide {
-    position:absolute; inset:0; display:none; flex-direction:column;
-    background:#ffffff; padding:48px 80px 40px 80px; color:#334455;
-  }
+
+  .slide { position:absolute; inset:0; display:none; flex-direction:column; background:linear-gradient(160deg,#fbfcfe 0%,#f2f5f9 100%); }
   .slide.active { display:flex; }
-  .bar { position:absolute; top:0; left:0; right:0; height:62px; background:#1a3a5c; display:flex; align-items:center; padding:0 40px; }
-  .bar .t { color:#fff; font-size:28px; font-weight:700; }
-  .bar .n { color:#e88b2a; font-weight:800; margin-left:16px; font-size:22px; }
-  .bar .acc { color:#7fa6c4; margin-left:auto; font-size:14px; }
-  .bar-line { position:absolute; top:62px; left:0; right:0; height:5px; background:#e88b2a; }
-  .num { margin-top:100px; font-size:16px; font-weight:700; color:#e88b2a; }
-  .title { font-size:42px; font-weight:800; color:#1a3a5c; margin-top:6px; }
-  .sub { font-size:20px; color:#2c5f8a; margin-top:10px; font-weight:600; }
-  ul { margin-top:28px; list-style:none; }
-  li { font-size:22px; line-height:1.55; margin-bottom:14px; padding-left:30px; position:relative; }
-  li:before { content:"\2022"; color:#e88b2a; font-weight:900; position:absolute; left:4px; font-size:26px; }
-  .grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:24px; }
-  .cell { background:#f2f4f7; border-top:6px solid #2c5f8a; padding:14px; min-height:140px; }
-  .cell h3 { color:#1a3a5c; font-size:18px; margin-bottom:8px; }
-  .cell p { font-size:13px; line-height:1.4; }
-  .cols3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin-top:28px; }
-  .box { background:#f2f4f7; border-radius:6px; min-height:340px; }
-  .box .head { color:#fff; font-size:18px; font-weight:700; padding:12px 16px; border-radius:6px 6px 0 0; }
-  .box .body { padding:16px; font-size:15px; line-height:1.55; white-space:pre-wrap; font-family:"Consolas","Courier New",monospace; }
-  .o .head { background:#e88b2a; } .s .head { background:#2c5f8a; } .e .head { background:#1a3a5c; }
-  table { width:100%; border-collapse:collapse; margin-top:26px; font-size:18px; }
-  th { background:#1a3a5c; color:#fff; padding:10px; text-align:left; }
-  td { border:1px solid #c6ccd4; padding:10px; }
-  tr:nth-child(even) td { background:#eef2f6; }
-  .example { background:#f2f4f7; border-left:6px solid #e88b2a; padding:18px; margin-top:24px; font-size:16px; line-height:1.6; white-space:pre-wrap; font-family:"Consolas","Courier New",monospace; }
-  .hint { position:fixed; bottom:16px; right:24px; z-index:50; color:#7fa6c4; font-size:13px; background:#0f2033; padding:8px 12px; border-radius:4px; }
-  .wing { position:fixed; bottom:140px; right:24px; z-index:50; color:#e88b2a; font-size:20px; }
-  @media (max-width:900px){ .slide{padding:30px 20px;} .cols3{grid-template-columns:1fr;} li{font-size:18px;} .title{font-size:30px;} }
+
+  header { flex:0 0 88px; background:#1a3a5c; display:flex; align-items:center; gap:22px; padding:0 44px; position:relative; }
+  header .chap { background:#e88b2a; color:#fff; font-weight:900; font-size:22px; padding:10px 18px; border-radius:6px; }
+  header .title { color:#fff; font-size:30px; font-weight:800; letter-spacing:.3px; }
+  header .tag { margin-left:auto; color:#7fa6c4; font-size:14px; font-weight:600; }
+  header .under { position:absolute; left:0; bottom:-5px; height:5px; width:100%; background:#e88b2a; }
+
+  main { flex:1; display:flex; flex-direction:column; padding:26px 44px 16px 44px; min-height:0; }
+
+  .sub { font-size:20px; color:#2c5f8a; font-weight:700; margin-bottom:14px; }
+  .grid2 { flex:1; display:grid; grid-template-columns:1.35fr 1fr; gap:22px; min-height:0; }
+  ul.b { list-style:none; align-content:center; }
+  ul.b li { font-size:21px; line-height:1.5; margin-bottom:13px; padding-left:34px; position:relative; color:#334455; }
+  ul.b li:before { content:"\2713"; color:#e88b2a; font-weight:900; position:absolute; left:2px; top:1px; font-size:19px; }
+  ul.b b, ul.b strong { color:#1a3a5c; }
+
+  .panel { background:#fff; border:1px solid #d6dde5; border-left:6px solid #2c5f8a; border-radius:8px; padding:18px 20px; box-shadow:0 4px 14px rgba(26,58,92,.10); }
+  .panel h3 { font-size:16px; color:#1a3a5c; margin-bottom:8px; letter-spacing:.5px; }
+  .panel .mono, .exa { font-family:Consolas,"Courier New",monospace; font-size:14.5px; line-height:1.55; color:#204060; white-space:pre-wrap; }
+
+  .cols3 { flex:1; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; min-height:0; align-items:stretch; }
+  .box { display:flex; flex-direction:column; background:#fff; border:1px solid #d6dde5; border-radius:8px; overflow:hidden; box-shadow:0 4px 14px rgba(26,58,92,.10); min-height:0; }
+  .box .head { flex:0 0 auto; color:#fff; font-size:17px; font-weight:800; padding:13px 18px; letter-spacing:.4px; }
+  .box .body { flex:1; padding:18px 20px; font-size:15.5px; line-height:1.6; color:#334455; font-family:Consolas,"Courier New",monospace; white-space:pre-wrap; }
+  .box.o .head { background:#e88b2a; } .box.s .head { background:#2c5f8a; } .box.e .head { background:#1a3a5c; }
+  .box.o .body { background:#fff7ee; } .box.s .body { background:#eef4fa; } .box.e .body { background:#e8eef5; }
+
+  table { width:100%; border-collapse:collapse; font-size:18.5px; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 4px 14px rgba(26,58,92,.10); }
+  th { background:#1a3a5c; color:#fff; padding:12px 14px; text-align:left; font-size:18px; }
+  td { border-bottom:1px solid #dfe5ec; padding:11px 14px; }
+  tr:nth-child(even) td { background:#f2f5f9; }
+  td b { color:#1a3a5c; }
+
+  footer { flex:0 0 30px; display:flex; align-items:center; justify-content:space-between; padding:0 44px; color:#6a7b8c; font-size:13px; }
+  #bar { height:4px; background:#e88b2a; transition:width .25s; }
+
+  nav { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:10px; align-items:center; z-index:60; background:#1a3a5c; padding:10px 16px; border-radius:30px; box-shadow:0 6px 18px rgba(0,0,0,.35); }
+  nav button { background:#e88b2a; color:#fff; border:none; font-weight:900; font-size:16px; width:38px; height:38px; border-radius:50%; cursor:pointer; line-height:1; }
+  nav button:hover { background:#fff; color:#1a3a5c; }
+  nav .dots { display:flex; gap:6px; }
+  nav .dot { width:9px; height:9px; border-radius:50%; background:#456a8c; border:none; cursor:pointer; padding:0; }
+  nav .dot.on { background:#e88b2a; }
+  nav .cnt { color:#7fa6c4; font-weight:700; font-size:14px; margin:0 6px; }
+
+  .example { background:#fff; border:1px solid #d6dde5; border-left:6px solid #e88b2a; border-radius:8px; padding:16px 20px; font-family:Consolas,"Courier New",monospace; font-size:15px; line-height:1.6; color:#204060; white-space:pre-wrap; box-shadow:0 4px 14px rgba(26,58,92,.10); margin-top:16px; }
+
+  .center { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .big { font-size:56px; font-weight:900; color:#1a3a5c; }
+  .med { font-size:26px; color:#2c5f8a; font-weight:700; margin-top:10px; }
+  .small { font-size:17px; color:#6a7b8c; margin-top:22px; }
+
+  @media (max-width:900px){ header{padding:0 16px; gap:10px;} header .title{font-size:20px;} .grid2{grid-template-columns:1fr;} .cols3{grid-template-columns:1fr;} main{padding:14px;} ul.b li{font-size:17px;} }
 </style>
 </head>
 <body>
 <div class="deck" id="deck">
-  <div class="hint">&#8592; &#8594; pour naviguer</div>
-  <div class="wing" id="page">1 / 17</div>
 
-  <!-- 1. Titre -->
-  <section class="slide active">
-    <div class="bar"><div class="t">Veille Prompt Engineering</div><div class="acc">P1IA Groupe 1</div></div>
-    <div class="bar-line"></div>
-    <div style="margin-top:220px; text-align:center;">
-      <div class="title">Veille Prompt Engineering</div>
-      <div class="sub" style="color:#2c5f8a;">Mieux rédiger pour mieux générer</div>
-      <div style="margin-top:24px; font-size:18px; color:#e88b2a; font-weight:700;">P1IA  &ndash;  Groupe 1  &ndash;  Septembre 2026</div>
-    </div>
+  <!-- 01 Title -->
+  <section class="slide">
+    <header><div class="chap">P1IA</div><div class="title">Veille Prompt Engineering</div><div class="tag">Groupe 1 &ndash; Sept. 2026</div><div class="under"></div></header>
+    <main>
+      <div class="center">
+        <div class="big">Prompt Engineering</div>
+        <div class="med">Mieux r&eacute;diger pour mieux g&eacute;n&eacute;rer</div>
+        <div class="small">Pr&eacute;sentation P1IA &ndash; Groupe 1 &ndash; Septembre 2026<br>Document de synth&egrave;se + diapositives + cheat sheets (dossier du livrable)</div>
+      </div>
+    </main>
+    <footer><span>P1IA G1</span><span id="tbar" style="flex:1"></span><span>1 / 18</span></footer>
   </section>
 
-  <!-- 2. Sommaire -->
+  <!-- 02 Sommaire -->
   <section class="slide">
-    <div class="bar"><div class="t">Sommaire</div></div><div class="bar-line"></div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:70px;">
-      <ul>
-        <li>1. Prérequis sur les LLM</li><li>2. Introduction au Prompt Engineering</li>
-        <li>3. Structure d'un prompt</li><li>4. Techniques de prompting</li>
-        <li>5. Prompt Engineering et raisonnement</li><li>6. Sorties structurées</li>
-      </ul>
-      <ul>
-        <li>7. Prompts pour les applications métier</li><li>8. Prompts pour le Machine Learning</li>
-        <li>9. Prompt Engineering et RAG</li><li>10. Évaluation et optimisation</li>
-        <li>11. Limites et risques</li><li>12. Références</li>
-      </ul>
-    </div>
+    <header><div class="chap">&#8801;</div><div class="title">Sommaire</div><div class="under"></div></header>
+    <main>
+      <div class="grid2">
+        <div>
+          <ul class="b">
+            <li><b>1. Pr&eacute;requis sur les LLM</b> &mdash; tokens, fen&ecirc;tre de contexte, param&egrave;tres</li>
+            <li><b>2. Intro au Prompt Engineering</b> &mdash; prompt, discipline, importance</li>
+            <li><b>3. Structure d'un prompt</b> &mdash; r&ocirc;le, contexte, t&acirc;che, donn&eacute;es</li>
+            <li><b>4. Techniques de prompting</b> &mdash; zero/one/few-shot, CoT, structur&eacute;</li>
+            <li><b>5. PE et raisonnement</b> &mdash; d&eacute;composition, self-check</li>
+            <li><b>6. Sorties structur&eacute;es</b> &mdash; pourquoi, formats, validation</li>
+            <li><b>7. Prompts m&eacute;tier</b> &mdash; r&eacute;sum&eacute;, traduction, classif, code</li>
+            <li><b>8. Prompts pour le ML</b> &mdash; donn&eacute;es, visuels, mod&egrave;les</li>
+            <li><b>9. PE et RAG</b> &mdash; recherche + contexte + g&eacute;n&eacute;ration</li>
+            <li><b>10 &agrave; 12. Fin</b> &mdash; &eacute;valuation, risques, r&eacute;f&eacute;rences</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>MOT-CL&Eacute;</h3>
+          <div class="exa">Prompt = la seule manette de pilotage d'un LLM.
+
+Un bon prompt &times;2 de qualit&eacute;, &div;10 d'erreurs.
+
+Chaque concept ci-apr&egrave;s suit le m&ecirc;me triptyque :
+  OBJECTIF (pourquoi ?)
+  SYNTAXE (comment ?)
+  EXEMPLE
+
+3 fiches cheat-sheets jointes dans le dossier.</div>
+        </div>
+      </div>
+    </main>
+    <footer><span id="bar" class="top"></span><span>2 / 18</span></footer>
   </section>
 
-  <!-- 3. Chapitre 1 -->
+  <!-- 03 Ch1 LLM -->
   <section class="slide">
-    <div class="bar"><div class="n">1</div><div class="t">Prérequis sur les LLM</div></div><div class="bar-line"></div>
-    <ul>
-      <li><b>LLM</b> = prédit le mot suivant, entraîné sur d'énormes volumes de texte</li>
-      <li><b>Contexte</b> = tout le texte déjà présent (prompt + conversation)</li>
-      <li><b>Token</b> = unité de base (100 tokens &#8776; 75 mots)</li>
-      <li><b>Fenêtre de contexte</b> = taille max en tokens (entrée + sortie)</li>
-      <li><b>Temperature</b> = hasard (0 fiable &rarr; 1 créatif)</li>
-      <li><b>max tokens</b> = limite de longueur de la sortie</li>
-      <li><b>top-p / top-k</b> = filtrent les choix probables</li>
-      <li><b>stop sequences</b> = arrêt automatique de la génération</li>
-    </ul>
+    <header><div class="chap">1</div><div class="title">Pr&eacute;requis sur les LLM</div><div class="under"></div></header>
+    <main>
+      <table>
+        <tr><th style="width:30%">Notion</th><th>D&eacute;finition &amp; impact pratique</th></tr>
+        <tr><td><b>LLM</b></td><td>Mod&egrave;le entra&icirc;n&eacute; &agrave; <i>pr&eacute;dire le mot suivant</i> sur des milliards de textes. Il ne &laquo; sait &raquo; pas : il calcule des probabilit&eacute;s.</td></tr>
+        <tr><td><b>Contexte</b></td><td>Ensemble du texte d&eacute;j&agrave; pr&eacute;sent (prompt + conversation). Tout tourne autour de lui : plus il est clair, plus la r&eacute;ponse est juste.</td></tr>
+        <tr><td><b>Token</b></td><td>Unit&eacute; de base du texte (mot, partie de mot, ponctuation). 100 tokens &#8776; 75 mots. Tout co&ucirc;te des tokens.</td></tr>
+        <tr><td><b>Fen&ecirc;tre de contexte</b></td><td>Nb max de tokens visibles (entr&eacute;e + sortie). Ex. 8k &#8776; 6 000 mots. Au-del&agrave; : texte oubli&eacute; ou refus&eacute;. &rarr; ranger les donn&eacute;es utiles en premier.</td></tr>
+        <tr><td><b>Temperature</b></td><td>Hasard. 0.0&ndash;0.3 = fiable/r&eacute;p&eacute;titif ; 0.7&ndash;1.0 = cr&eacute;atif/vari&eacute;.</td></tr>
+        <tr><td><b>max tokens / top-p / top-k</b></td><td>max tokens = longueur de sortie ; top-p (0&ndash;1) et top-k ne gardent que les choix probables. Faibles = d&eacute;terministes.</td></tr>
+        <tr><td><b>stop sequences</b></td><td>Cha&icirc;nes qui coupent la g&eacute;n&eacute;ration (fin de JSON, balise, s&eacute;parateur).</td></tr>
+      </table>
+      <div class="example">R&egrave;gle : t&acirc;che pr&eacute;cise &rarr; temperature 0,2 &nbsp;|&nbsp; t&acirc;che cr&eacute;ative &rarr; temperature 0,8 &nbsp;|&nbsp; toujours pr&eacute;voir assez de max tokens pour finir la r&eacute;ponse.</div>
+    </main>
+    <footer><span id="bar"></span><span>3 / 18</span></footer>
   </section>
 
-  <!-- 4. Chapitre 2 -->
+  <!-- 04 Ch2 Intro -->
   <section class="slide">
-    <div class="bar"><div class="n">2</div><div class="t">Introduction au Prompt Engineering</div></div><div class="bar-line"></div>
-    <div class="sub">Un prompt = la seule façon de piloter un LLM</div>
-    <ul>
-      <li><b>Prompt</b> = instruction donnée à l'IA (question, ordre, texte à transformer)</li>
-      <li><b>Prompt Engineering</b> = concevoir, tester, améliorer les prompts</li>
-      <li><b>Pourquoi ?</b> qualité des réponses, temps gagné, moins d'erreurs</li>
-      <li>Permet d'<b>industrialiser l'IA</b> dans les applications métier</li>
-    </ul>
+    <header><div class="chap">2</div><div class="title">Introduction au Prompt Engineering</div><div class="under"></div></header>
+    <main>
+      <div class="grid2">
+        <div class="panel">
+          <h3>QU'EST-CE QU'UN PROMPT ?</h3>
+          <div class="mono">Un <b>prompt</b> est l'instruction donn&eacute;e &agrave; l'IA :
+question, ordre, texte &agrave; transformer, contrainte.
+C'est la seule fa&ccedil;on de &laquo; piloter &raquo; le mod&egrave;le.</div>
+        </div>
+        <div class="panel">
+          <h3>PROMPT ENGINEERING</h3>
+          <div class="mono">Discipline = <b>concevoir, tester, am&eacute;liorer</b> des prompts
+pour des r&eacute;ponses pr&eacute;cises, fiables et exploitables.
+Pas du code : une m&eacute;thode de r&eacute;daction.</div>
+        </div>
+      </div>
+      <div class="cols3" style="margin-top:20px;">
+        <div class="box s"><div class="head">POURQUOI C'EST IMPORTANT</div><div class="body">Qualit&eacute; : une bonne formulation peut doubler la pertinence d'une r&eacute;ponse, sans changer de mod&egrave;le.</div></div>
+        <div class="box o"><div class="head">TEMPS GAGN&eacute;</div><div class="body">Moins d'aller-retours et de corrections, r&eacute;sultats exploitables du premier coup.</div></div>
+        <div class="box e"><div class="head">PASSAGE &Agrave; L'&Eacute;CHELLE</div><div class="body">Industrialiser l'IA dans les applications m&eacute;tier : formats fixes, automatisation, contr&ocirc;le.</div></div>
+      </div>
+    </main>
+    <footer><span id="bar"></span><span>4 / 18</span></footer>
   </section>
 
-  <!-- 5. Chapitre 3 : structure -->
+  <!-- 05 Ch3 Structure -->
   <section class="slide">
-    <div class="bar"><div class="n">3</div><div class="t">Structure d'un prompt</div></div><div class="bar-line"></div>
-    <div class="grid">
-      <div class="cell"><h3>RÔLE</h3><p>qui est le modèle ?<br>ex. expert CA</p></div>
-      <div class="cell"><h3>CONTEXTE</h3><p>situation, public, limites</p></div>
-      <div class="cell"><h3>TÂCHE</h3><p>verbe d'action<br>&laquo; r&eacute;sume &raquo;, &laquo; classe &raquo;</p></div>
-      <div class="cell"><h3>DONNÉES</h3><p>le texte à traiter, bien délimité</p></div>
-      <div class="cell"><h3>CONTRAINTES</h3><p>longueur, ton, style, interdits</p></div>
-      <div class="cell"><h3>FORMAT</h3><p>JSON, puces, tableau...</p></div>
-    </div>
-    <div class="example">Tu es un analyste financier.  &rarr;  RÔLE
-Synthèse pour un PDG non technique.  &rarr;  CONTEXTE
-Résume ce rapport trimestriel.  &rarr;  TÂCHE
-Rapport : &lt;&lt;&lt;texte&gt;&gt;&gt;  &rarr;  DONNÉES
-Max 8 lignes, sans jargon.  &rarr;  CONTRAINTES
-Format : 3 puces + 1 conclusion.  &rarr;  FORMAT</div>
+    <header><div class="chap">3</div><div class="title">Structure d'un prompt</div><div class="under"></div></header>
+    <main>
+      <table>
+        <tr><th style="width:18%">Brique</th><th style="width:36%">R&ocirc;le</th><th>Exemple</th></tr>
+        <tr><td><b>R&Ocirc;LE</b></td><td>Posture du mod&egrave;le (expert, relecteur, formateur)</td><td>&laquo; Tu es un data analyst s&eacute;nior. &raquo;</td></tr>
+        <tr><td><b>CONTEXTE</b></td><td>Situation, public, limites de fond</td><td>&laquo; Public : d&eacute;butants en Excel. &raquo;</td></tr>
+        <tr><td><b>T&Acirc;CHE</b></td><td>Action demand&eacute;e (verbe d'action)</td><td>&laquo; Explique la fonction RECHERCHEV. &raquo;</td></tr>
+        <tr><td><b>DONN&Eacute;ES</b></td><td>Texte &agrave; traiter, &agrave; d&eacute;limiter clairement</td><td>&laquo; Texte : &lt;&lt;&lt;document&gt;&gt;&gt; &raquo;</td></tr>
+        <tr><td><b>CONTRAINTES</b></td><td>Longueur, ton, langue, interdits</td><td>&laquo; 10 lignes max, sans jargon. &raquo;</td></tr>
+        <tr><td><b>FORMAT DE SORTIE</b></td><td>Structure attendue du r&eacute;sultat</td><td>&laquo; Tableau Markdown &agrave; 3 colonnes. &raquo;</td></tr>
+      </table>
+      <div class="example">Tu es un analyste financier.  &rarr;  R&Ocirc;LE<br>Synth&egrave;se pour un PDG non technique.  &rarr;  CONTEXTE<br>R&eacute;sume ce rapport trimestriel.  &rarr;  T&Acirc;CHE<br>Rapport : &lt;&lt;&lt;texte&gt;&gt;&gt;  &rarr;  DONN&Eacute;ES<br>Max 8 lignes, sans jargon.  &rarr;  CONTRAINTES<br>Format : 3 puces + 1 conclusion.  &rarr;  FORMAT</div>
+    </main>
+    <footer><span id="bar"></span><span>5 / 18</span></footer>
   </section>
 
-  <!-- 6. Zero-shot -->
+  <!-- 06 Zero-shot -->
   <section class="slide">
-    <div class="bar"><div class="n">4</div><div class="t">Zero-shot prompting</div></div><div class="bar-line"></div>
-    <div class="cols3">
-      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">Aucun exemple donné. Le modèle mobilise directement son entraînement.</div></div>
-      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">Décrire la tâche + fournir l'entrée.
-&laquo; Fais X sur Y &raquo;.</div></div>
-      <div class="box e"><div class="head">EXEMPLE</div><div class="body">&laquo; Classe le sentiment de ce commentaire (positif / négatif / neutre) :
-&laquo; Le produit est arrivé cassé. &raquo; &raquo;</div></div>
-    </div>
+    <header><div class="chap">4</div><div class="title">Zero-shot prompting</div><div class="under"></div></header>
+    <main>
+      <div class="cols3">
+        <div class="box o"><div class="head">OBJECTIF &mdash; pourquoi&nbsp;?</div><div class="body">T&acirc;che simple et connue du mod&egrave;le : nulle besoin d'exemple, un ordre clair suffit. Rapide, &eacute;conome en tokens.</div></div>
+        <div class="box s"><div class="head">SYNTAXE &mdash; comment&nbsp;?</div><div class="body">D&eacute;crire la t&acirc;che au verbe d'action, puis fournir l'entr&eacute;e.
+  &laquo; Fais X sur Y. &raquo;</div></div>
+        <div class="box e"><div class="head">EXEMPLE</div><div class="body">&laquo; Classe le sentiment de ce commentaire
+(positif / n&eacute;gatif / neutre) :
+&laquo; Le produit est arriv&eacute; cass&eacute;. &raquo; &raquo;
+
+Sortie : N&eacute;gatif (fiable d&egrave;s l'entra&icirc;nement).</div></div>
+      </div>
+    </main>
+    <footer><span id="bar"></span><span>6 / 18</span></footer>
   </section>
 
-  <!-- 7. One-shot -->
+  <!-- 07 One-shot -->
   <section class="slide">
-    <div class="bar"><div class="n">4</div><div class="t">One-shot prompting</div></div><div class="bar-line"></div>
-    <div class="cols3">
-      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">Un seul exemple montre au modèle le format ou le style attendu.</div></div>
-      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">Tâche + 1 exemple (entr&eacute;e -&gt; sortie) + nouvelle entr&eacute;e.</div></div>
-      <div class="box e"><div class="head">EXEMPLE</div><div class="body">Convertis un titre de film en emojis.
-Exemple : &laquo; Jaws &raquo; -&gt; [requin]
-&laquo; Titanic &raquo; -&gt; ?</div></div>
-    </div>
+    <header><div class="chap">4</div><div class="title">One-shot prompting</div><div class="under"></div></header>
+    <main>
+      <div class="cols3">
+        <div class="box o"><div class="head">OBJECTIF &mdash; pourquoi&nbsp;?</div><div class="body">Montrer le format attendu d'un seul exemple : le mod&egrave;le copie structure et style. Id&eacute;al pour un format inhabituel.</div></div>
+        <div class="box s"><div class="head">SYNTAXE &mdash; comment&nbsp;?</div><div class="body">T&acirc;che + 1 exemple (entr&eacute;e -&gt; sortie) + nouvelle entr&eacute;e. L'exemple sert de moule.</div></div>
+        <div class="box e"><div class="head">EXEMPLE</div><div class="body">Convertis un titre de film en emojis.
+Exemple : &laquo; Jaws &raquo; -&gt; [requin][vague]
+&laquo; Titanic &raquo; -&gt; ?
+
+&rarr; [bateau][glace][triste]</div></div>
+      </div>
+    </main>
+    <footer><span id="bar"></span><span>7 / 18</span></footer>
   </section>
 
-  <!-- 8. Few-shot -->
+  <!-- 08 Few-shot -->
   <section class="slide">
-    <div class="bar"><div class="n">4</div><div class="t">Few-shot prompting</div></div><div class="bar-line"></div>
-    <div class="cols3">
-      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">2 &agrave; 5 exemples : le mod&egrave;le apprend le &laquo; sch&eacute;ma &raquo; et l'applique.</div></div>
-      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">T&acirc;che + exemples A -&gt; B + nouvelle entr&eacute;e -&gt; ?</div></div>
-      <div class="box e"><div class="head">EXEMPLE</div><div class="body">Classe : Travail / Personnel / Spam
-&laquo; -50% ce week-end ! &raquo; -&gt; Spam
-&laquo; Budget Q2 ? &raquo; -&gt; Travail
-&laquo; Recette de tarte &raquo; -&gt; ?</div></div>
-    </div>
+    <header><div class="chap">4</div><div class="title">Few-shot prompting</div><div class="under"></div></header>
+    <main>
+      <div class="cols3">
+        <div class="box o"><div class="head">OBJECTIF &mdash; pourquoi&nbsp;?</div><div class="body">2 &agrave; 5 exemples enseignent le &laquo; sch&eacute;ma &raquo; (format + logique). Grande pr&eacute;cision sur les t&acirc;ches inhabituelles ou nuanc&eacute;es.</div></div>
+        <div class="box s"><div class="head">SYNTAXE &mdash; comment&nbsp;?</div><div class="body">T&acirc;che + s&eacute;rie d'exemples A -&gt; B + nouvelle entr&eacute;e termin&eacute;e par une fl&egrave;che pour signaler la suite.</div></div>
+        <div class="box e"><div class="head">EXEMPLE</div><div class="body">Classe : Travail / Personnel / Spam
+&laquo; -50% ce week-end&nbsp;! &raquo; -&gt; Spam
+&laquo; Budget Q2&nbsp;? &raquo; -&gt; Travail
+&laquo; Recette de grand-m&egrave;re &raquo; -&gt; ?
+
+&rarr; Personnel</div></div>
+      </div>
+    </main>
+    <footer><span id="bar"></span><span>8 / 18</span></footer>
   </section>
 
-  <!-- 9. CoT -->
+  <!-- 09 CoT -->
   <section class="slide">
-    <div class="bar"><div class="n">4</div><div class="t">Chain-of-Thought (CoT)</div></div><div class="bar-line"></div>
-    <div class="cols3">
-      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">Imposer un raisonnement pas &agrave; pas pour fiabiliser les r&eacute;ponses.</div></div>
-      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">Ajouter &laquo; Raisonne &eacute;tape par &eacute;tape &raquo; &agrave; la fin du prompt.</div></div>
-      <div class="box e"><div class="head">EXEMPLE</div><div class="body">Train depuis Paris : 120 km/h.
-Train depuis Lyon : 90 km/h.
+    <header><div class="chap">4</div><div class="title">Chain-of-Thought (CoT)</div><div class="under"></div></header>
+    <main>
+      <div class="cols3">
+        <div class="box o"><div class="head">OBJECTIF &mdash; pourquoi&nbsp;?</div><div class="body">Forcer le raisonnement &eacute;tape par &eacute;tape : am&eacute;liore fortement le calcul, la logique et la r&eacute;duction des erreurs de chiffres.</div></div>
+        <div class="box s"><div class="head">SYNTAXE &mdash; comment&nbsp;?</div><div class="body">Ajouter une invitation explicite : &laquo; Raisonne &eacute;tape par &eacute;tape avant de r&eacute;pondre. &raquo; (version &laquo; seed &raquo; du paper Wei et al. 2022).</div></div>
+        <div class="box e"><div class="head">EXEMPLE</div><div class="body">Train A : Paris 9h &agrave; 120 km/h.
+Train B : Lyon 9h &agrave; 90 km/h.
 Distance : 470 km.
-&laquo; Raisonne &eacute;tape par &eacute;tape. &raquo;</div></div>
-    </div>
+&laquo; Raisonne &eacute;tape par &eacute;tape. &raquo;
+
+1) temps relatif t = 470/(120+90) = 2,24h
+2) rencontre &agrave; 11h14.</div></div>
+      </div>
+    </main>
+    <footer><span id="bar"></span><span>9 / 18</span></footer>
   </section>
 
-  <!-- 10. Structured -->
+  <!-- 10 Structured -->
   <section class="slide">
-    <div class="bar"><div class="n">4</div><div class="t">Structured prompting</div></div><div class="bar-line"></div>
-    <div class="cols3">
-      <div class="box o"><div class="head">OBJECTIF (pourquoi ?)</div><div class="body">Sortie contrainte &agrave; un format = exploitable par un programme.</div></div>
-      <div class="box s"><div class="head">SYNTAXE (comment ?)</div><div class="body">Imposer le format dans le prompt :
-&laquo; R&eacute;ponds uniquement en JSON, sans texte autour. &raquo;</div></div>
-      <div class="box e"><div class="head">EXEMPLE</div><div class="body">{
-  "resume": "...",
-  "mots_cles": ["..."],
-  "confiance": 0.9
-}</div></div>
-    </div>
+    <header><div class="chap">4</div><div class="title">Structured prompting</div><div class="under"></div></header>
+    <main>
+      <div class="cols3">
+        <div class="box o"><div class="head">OBJECTIF &mdash; pourquoi&nbsp;?</div><div class="body">Sortie contrainte &agrave; une structure = exploitable par un programme : JSON r&eacute;injectable, z&eacute;ro reformatage.</div></div>
+        <div class="box s"><div class="head">SYNTAXE &mdash; comment&nbsp;?</div><div class="body">Imposer le format dans le prompt, fournir un squelette, bannir le texte autour : &laquo; R&eacute;ponds uniquement en JSON. &raquo;</div></div>
+        <div class="box e"><div class="head">EXEMPLE</div><div class="body">{
+  "resume": "en 1 phrase",
+  "mots_cles": ["3 &agrave; 5"],
+  "tone": "neutre",
+  "score": 0.0 &#133; 1.0
+}
+Niveau sup&eacute;rieur : JSON schema (codes), validation automatique.</div></div>
+      </div>
+    </main>
+    <footer><span id="bar"></span><span>10 / 18</span></footer>
   </section>
 
-  <!-- 11. Chapitre 5 -->
+  <!-- 11 Ch5 Raisonnement -->
   <section class="slide">
-    <div class="bar"><div class="n">5</div><div class="t">Prompt Engineering et raisonnement</div></div><div class="bar-line"></div>
-    <div class="sub">2 techniques d'or pour la logique et la synthèse</div>
-    <ul>
-      <li><b>Décomposition</b> : découper un problème complexe en sous-tâches simples</li>
-      <li>Chaque sous-tâche est traitée séparément, puis on assemble</li>
-      <li><b>Self-check</b> : le modèle relit, critique puis corrige sa propre réponse</li>
-      <li><b>Double-pass</b> : réponse 1 &rarr; critique &rarr; réponse 2 corrigée</li>
-    </ul>
+    <header><div class="chap">5</div><div class="title">PE et raisonnement</div><div class="under"></div></header>
+    <main>
+      <div class="grid2">
+        <div class="panel">
+          <h3>D&Eacute;COMPOSITION &mdash; « diviser pour r&eacute;gner »</h3>
+          <div class="mono">Casser un probl&egrave;me complexe en sous-t&acirc;ches simples.
+Chaque sous-t&acirc;che est fiable ; on assemble ensuite les r&eacute;sultats (ou on d&eacute;l&egrave;gue &agrave; un sous-agent).
+
+1) extrais produits + prix
+2) calcule chaque marge
+3) classe par marge d&eacute;croissante</div>
+        </div>
+        <div class="panel">
+          <h3>SELF-CHECK &mdash; le mod&egrave;le se relit</h3>
+          <div class="mono">G&eacute;n&eacute;rer, critiquer, corriger :
+1) proposer une r&eacute;ponse
+2) lister 3 erreurs ou oublis
+3) &eacute;crire la version corrig&eacute;e
+
+Variante « double-pass » : une critique ind&eacute;pendante, puis fusion des deux r&eacute;ponses.</div>
+        </div>
+      </div>
+      <div class="example">Le&ccedil;on : sur toute t&acirc;che &agrave; plusieurs &eacute;tapes, exiger la d&eacute;composition AVCANT la r&eacute;ponse finale &#8212; c'est le c&oelig;ur du raisonnement ma&icirc;tris&eacute;.</div>
+    </main>
+    <footer><span id="bar"></span><span>11 / 18</span></footer>
   </section>
 
-  <!-- 12. Chapitre 6 -->
+  <!-- 12 Ch6 Sorties structurées -->
   <section class="slide">
-    <div class="bar"><div class="n">6</div><div class="t">Sorties structurées</div></div><div class="bar-line"></div>
-    <ul>
-      <li><b>Pourquoi ?</b> exploitation automatique, comparaison, moins d'oublis</li>
-      <li><b>JSON</b> : passage aux applications (API, automatisation)</li>
-      <li><b>XML</b> : documents, échanges normalisés</li>
-      <li><b>Tables Markdown / CSV</b> : exports Excel</li>
-      <li><b>Validation</b> : le code vérifie le format ; le modèle relit face au schéma</li>
-    </ul>
+    <header><div class="chap">6</div><div class="title">Sorties structur&eacute;es</div><div class="under"></div></header>
+    <main>
+      <table>
+        <tr><th style="width:24%">Format</th><th style="width:40%">Usage</th><th>Validation</th></tr>
+        <tr><td><b>JSON</b></td><td>API, automatisation, pipelines et bases de donn&eacute;es</td><td rowspan="3">1. V&eacute;rifier hors du prompt (code <b>et non le mod&egrave;le</b>) : validit&eacute; syntaxe, champs obligatoires, types.<br>2. Le mod&egrave;le relit face &agrave; un sch&eacute;ma de r&eacute;f&eacute;rence.<br>3. Nouvel essai avec prompt renforc&eacute; si &eacute;chec.</td></tr>
+        <tr><td><b>XML</b></td><td>Documents &eacute;ditoriaux, catalogues, &eacute;changes normalis&eacute;s</td></tr>
+        <tr><td><b>Tables Markdown / CSV</b></td><td>Exports Excel, tableaux de bord</td></tr>
+      </table>
+      <div class="example">Points forts : &eacute;vite les oublis (la structure impose les champs), rend les r&eacute;ponses comparables et testables &agrave; la cha&icirc;ne.</div>
+    </main>
+    <footer><span id="bar"></span><span>12 / 18</span></footer>
   </section>
 
-  <!-- 13. Chapitre 7 -->
+  <!-- 13 Ch7 Métier -->
   <section class="slide">
-    <div class="bar"><div class="n">7</div><div class="t">Prompts pour les applications métier</div></div><div class="bar-line"></div>
-    <table>
-      <tr><th>Application</th><th>Prompt type</th></tr>
-      <tr><td><b>Résumé</b></td><td>&laquo; Résume en 3 puces, garde les chiffres clés &raquo;</td></tr>
-      <tr><td><b>Traduction</b></td><td>&laquo; Traduis en anglais pro, garde les nombres &raquo;</td></tr>
-      <tr><td><b>Classification</b></td><td>&laquo; Classe : bug / question / feature &raquo;</td></tr>
-      <tr><td><b>Extraction</b></td><td>&laquo; Extrais nom, date, montant &rarr; JSON &raquo;</td></tr>
-      <tr><td><b>Génération</b></td><td>&laquo; Rédige un mail de relance, 150 mots, ton courtois &raquo;</td></tr>
-      <tr><td><b>Code</b></td><td>&laquo; Écris une fonction Python qui calcule une moyenne &raquo;</td></tr>
-    </table>
+    <header><div class="chap">7</div><div class="title">Prompts pour les applications m&eacute;tier</div><div class="under"></div></header>
+    <main>
+      <table>
+        <tr><th style="width:20%">Application</th><th style="width:44%">Prompt &laquo; type &raquo;</th><th>Pourquoi &ccedil;a marche</th></tr>
+        <tr><td><b>R&eacute;sum&eacute;</b></td><td>&laquo; R&eacute;sume en 3 puces en gardant les chiffres cl&eacute;s. &raquo;</td><td>Longueur + point d'ancrage</td></tr>
+        <tr><td><b>Traduction</b></td><td>&laquo; Traduis en anglais pro, garde nombres et ponctuation. &raquo;</td><td>Registre explicite</td></tr>
+        <tr><td><b>Classification</b></td><td>&laquo; Classe ce ticket : bug / question / feature. &raquo;</td><td>Cat&eacute;gories closes</td></tr>
+        <tr><td><b>Extraction</b></td><td>&laquo; Extrais nom, date, montant. R&eacute;ponds en JSON. &raquo;</td><td>Format impos&eacute;</td></tr>
+        <tr><td><b>G&eacute;n&eacute;ration</b></td><td>&laquo; Mail de relance, 150 mots, ton courtois, date limite + r&eacute;f. facture. &raquo;</td><td>Public + ton + d&eacute;tails</td></tr>
+        <tr><td><b>Code</b></td><td>&laquo; Fonction Python (moyenne d'une liste), avec docstring et cas vides. &raquo;</td><td>Sp&eacute;cifications pr&eacute;cises</td></tr>
+      </table>
+      <div class="example">R&egrave;gle d'or : toujours pr&eacute;ciser public + longueur + ton + format. &laquo; Un mail &raquo; &ne; &laquo; une relance de paiement au fournisseur X, 150 mots, ton courtois, avec la date limite et la r&eacute;f&eacute;rence facture &raquo;.</div>
+    </main>
+    <footer><span id="bar"></span><span>13 / 18</span></footer>
   </section>
 
-  <!-- 14. Chapitre 8 -->
+  <!-- 14 Ch8 ML -->
   <section class="slide">
-    <div class="bar"><div class="n">8</div><div class="t">Prompts pour le Machine Learning</div></div><div class="bar-line"></div>
-    <ul>
-      <li><b>Préparation</b> : nettoyage, doublons, normalisation des dates</li>
-      <li><b>Visualisation</b> : demander le code matplotlib adapté aux données</li>
-      <li><b>Sélection de modèles</b> : faire comparer plusieurs familles de modèles</li>
-      <li><b>Interprétation</b> : expliquer matrice de confusion, précision, rappel</li>
-    </ul>
+    <header><div class="chap">8</div><div class="title">Prompts pour le Machine Learning</div><div class="under"></div></header>
+    <main>
+      <div class="cols3">
+        <div class="box o"><div class="head">PR&Eacute;PARATION DES DONN&Eacute;ES</div><div class="body">&laquo; Nettoie ce jeu de donn&eacute;es : supprime les doublons, corrige les valeurs ab&eacute;rantes, normalise dates, et rends un tableau des corrections. &raquo;</div></div>
+        <div class="box s"><div class="head">G&Eacute;N&Eacute;RATION DE VISUALISATIONS</div><div class="body">&laquo; Code matplotlib d'un histogramme du CA mensuel &agrave; partir de ces donn&eacute;es, &eacute;tiquettes en fran&ccedil;ais, 800&times;500. &raquo;</div></div>
+        <div class="box e"><div class="head">S&Eacute;LECTION DE MOD&Egrave;LES</div><div class="body">&laquo; Classification d'e-mails spam / non-spam :
+10 000 exemples. Compare 3 familles de mod&egrave;les et recommande, en arbitrant pr&eacute;cision / co&ucirc;t / simplicit&eacute;. &raquo;</div></div>
+      </div>
+      <div class="cols3" style="margin-top:20px;">
+        <div class="box e" style="grid-column:1 / span 2;"><div class="head">INTERPR&Eacute;TATION DES M&Eacute;TRIQUES</div><div class="body">&laquo; Matrice de confusion : pr&eacute;cision 0,72, rappel 0,88. Qu'est-ce que cela signifie en d&eacute;pistage m&eacute;dical (FP/FN) ? Propose 2 am&eacute;liorations. &raquo;</div></div>
+        <div class="box o"><div class="head">ASTUCE</div><div class="body">Demandez TOUJOURS le code ET l'explication : on r&eacute;cup&egrave;re l'ex&eacute;cutable + le raisonnement pour v&eacute;rifier.</div></div>
+      </div>
+    </main>
+    <footer><span id="bar"></span><span>14 / 18</span></footer>
   </section>
 
-  <!-- 15. Chapitre 9 -->
+  <!-- 15 Ch9 RAG -->
   <section class="slide">
-    <div class="bar"><div class="n">9</div><div class="t">Prompt Engineering et RAG</div></div><div class="bar-line"></div>
-    <div class="sub" style="margin-top:20px;">Le prompting seul ne suffit pas : le modèle ignore vos documents et l'actualité.</div>
-    <div class="cols3" style="margin-top:20px; min-height:auto;">
-      <div class="box o" style="min-height:180px;"><div class="head">1. RECHERCHE</div><div class="body">Chercher les passages pertinents dans une base de documents (retrieval).</div></div>
-      <div class="box s" style="min-height:180px;"><div class="head">2. AUGMENTATION</div><div class="body">Ins&eacute;rer ces extraits dans le prompt.</div></div>
-      <div class="box e" style="min-height:180px;"><div class="head">3. GÉNÉRATION</div><div class="body">Le mod&egrave;le r&eacute;pond uniquement &agrave; partir des extraits cit&eacute;s.</div></div>
-    </div>
-    <div class="example">« Réponds UNIQUEMENT à partir des extraits ci-dessous.
-Si absent : "Information introuvable."
-Extraits : <<<doc1 >>> <<<doc2 >>>    Question : ...
-200 mots max, cite tes sources. »</div>
+    <header><div class="chap">9</div><div class="title">Prompt Engineering et RAG</div><div class="under"></div></header>
+    <main>
+      <div class="sub">Pourquoi le prompting seul ne suffit pas : le LLM ignore vos documents internes et l'actualit&eacute;, et peut halluciner sans source.</div>
+      <div class="cols3">
+        <div class="box o"><div class="head">1. RECHERCHE</div><div class="body">Indexer la base de documents, retrouver par similarit&eacute; les passages pertinents pour la question (retrieval / embeddings).</div></div>
+        <div class="box s"><div class="head">2. AUGMENTATION</div><div class="body">Ins&eacute;rer les extraits retenus DANS le prompt, m&eacute;lang&eacute;s &agrave; l'instruction et &agrave; la question.</div></div>
+        <div class="box e"><div class="head">3. G&Eacute;N&Eacute;RATION</div><div class="body">Le mod&egrave;le r&eacute;pond UNIQUEMENT sur ces extraits, avec citation du ou des documents sources.</div></div>
+      </div>
+      <div class="example">&laquo; R&eacute;ponds UNIQUEMENT &agrave; partir des extraits ci-dessous. Si absent : &quot;Information introuvable.&quot;
+Extraits : &lt;&lt;&lt;doc1 : &hellip;&gt;&gt;&gt; &lt;&lt;&lt;doc2 : &hellip;&gt;&gt;&gt;
+Question : &hellip;  200 mots max, cite les sources. &raquo;</div>
+    </main>
+    <footer><span id="bar"></span><span>15 / 18</span></footer>
   </section>
 
-  <!-- 16. Chapitre 10 -->
+  <!-- 16 Ch10 Évaluation -->
   <section class="slide">
-    <div class="bar"><div class="n">10</div><div class="t">Évaluation et optimisation des prompts</div></div><div class="bar-line"></div>
-    <ul>
-      <li><b>Pourquoi</b> : un prompt &laquo; qui marche une fois &raquo; peut échouer ailleurs</li>
-      <li><b>Mesurer</b> : exactitude, exhaustivité, format, absence d'hallucination</li>
-      <li><b>Comparer</b> : A/B testing sur les mêmes entrées, grille de notation</li>
-      <li><b>Itérer</b> : écrire &rarr; tester &rarr; repérer les erreurs &rarr; corriger &rarr; re-tester</li>
-      <li><b>Versionner</b> : garder les versions (v1, v2, ...)</li>
-    </ul>
+    <header><div class="chap">10</div><div class="title">&Eacute;valuation et optimisation des prompts</div><div class="under"></div></header>
+    <main>
+      <div class="cols3">
+        <div class="box o"><div class="head">POURQUOI &Eacute;VALUER&nbsp;?</div><div class="body">Un prompt qui &laquo; marche une fois &raquo; peut &eacute;chouer sur d'autres entr&eacute;es. Mesurer = comparer en connaissance de cause, avant de d&eacute;ployer en prod.</div></div>
+        <div class="box s"><div class="head">MESURER LA QUALIT&Eacute;</div><div class="body">Crit&egrave;res : exactitude, exhaustivit&eacute;, format, ton, absence d'hallucination.
+M&eacute;thodes : grille manuelle, jeu de test fixe, notation par un autre LLM (LLM-as-judge), F1 / concordance.</div></div>
+        <div class="box e"><div class="head">OPTIMISATION IT&Eacute;RATIVE</div><div class="body">boucle : &eacute;crire &rarr; tester sur M&eacute;me &eacute;chantillon &rarr; identifier erreurs &rarr; corriger &rarr; re-tester.
+
+Comparer par A/B : 2 prompts sur les M&Ecirc;MES entr&eacute;es.
+Versionner chaque prompt (v1, v2&hellip;).</div></div>
+      </div>
+    </main>
+    <footer><span id="bar"></span><span>16 / 18</span></footer>
   </section>
 
-  <!-- 17. Chapitre 11 -->
+  <!-- 17 Ch11 Limites -->
   <section class="slide">
-    <div class="bar"><div class="n">11</div><div class="t">Limites et risques</div></div><div class="bar-line"></div>
-    <ul>
-      <li><b>Hallucinations</b> : réponses fausses mais assurées &nbsp;&rarr;&nbsp; RAG + citations</li>
-      <li><b>Ambiguïté</b> : prompt flou = réponse au hasard &nbsp;&rarr;&nbsp; préciser tout</li>
-      <li><b>Biais</b> : stéréotypes reproduits &nbsp;&rarr;&nbsp; relecture humaine</li>
-      <li><b>Confidentialité</b> : les données partent chez le fournisseur &nbsp;&rarr;&nbsp; anonymiser</li>
-      <li><b>Injection de prompt</b> : les données détournent les instructions &nbsp;&rarr;&nbsp; séparer</li>
-      <li><b>Jailbreak</b> : contourner les garde-fous &nbsp;&rarr;&nbsp; supervision</li>
-    </ul>
+    <header><div class="chap">11</div><div class="title">Limites et risques</div><div class="under"></div></header>
+    <main>
+      <table>
+        <tr><th style="width:20%">Risque</th><th style="width:42%">Description</th><th>Mitigation</th></tr>
+        <tr><td><b>Hallucination</b></td><td>Fait faux pr&eacute;sent&eacute; avec assurance</td><td>RAG + citations + validation humaine</td></tr>
+        <tr><td><b>Ambigu&iuml;t&eacute;</b></td><td>Prompt flou &rarr; r&eacute;ponse au hasard ou hors-sujet</td><td>Pr&eacute;ciser, reformuler, tester 2 versions</td></tr>
+        <tr><td><b>Biais</b></td><td>St&eacute;r&eacute;otypes pr&eacute;sents dans les donn&eacute;es d'entra&icirc;nement</td><td>Prompts neutres, jeux de cas sensibles, relecture</td></tr>
+        <tr><td><b>Confidentialit&eacute;</b></td><td>Les donn&eacute;es envoy&eacute;es peuvent &ecirc;tre stock&eacute;es</td><td>Ne jamais envoyer de donn&eacute;es sensibles ; anonymiser</td></tr>
+        <tr><td><b>Injection de prompt</b></td><td>Des donn&eacute;es utilisateur d&eacute;tournent les instructions</td><td>S&eacute;parer instructions/donn&eacute;es, filtres, validation</td></tr>
+        <tr><td><b>Jailbreak</b></td><td>Contournement des garde-fous de s&eacute;curit&eacute;</td><td>Filtres de sortie, supervision, mises &agrave; jour</td></tr>
+      </table>
+      <div class="example">Le prompt engineering ne supprime pas les risques, il les r&eacute;duit. Supervisez toujours les d&eacute;cisions importantes.</div>
+    </main>
+    <footer><span id="bar"></span><span>17 / 18</span></footer>
   </section>
 
-  <!-- 18. Chapitre 12 -->
+  <!-- 18 Ch12 Références -->
   <section class="slide">
-    <div class="bar"><div class="n">12</div><div class="t">Références</div></div><div class="bar-line"></div>
-    <ul style="font-size:20px;">
-      <li>OpenAI : platform.openai.com/docs/guides/prompt-engineering</li>
-      <li>Anthropic : docs.anthropic.com (Prompt Engineering Overview)</li>
-      <li>Google / Gemini : ai.google.dev/gemini-api/docs/prompting-intro</li>
-      <li>Prompt Engineering Guide (DAIR AI) : promptingguide.ai</li>
-      <li>Microsoft Azure OpenAI : learn.microsoft.com (prompt engineering)</li>
-      <li>ArXiv &laquo; Chain-of-Thought Prompting &raquo; (Wei et al. 2022) : arxiv.org/abs/2201.11903</li>
-      <li>ArXiv &laquo; Retrieval-Augmented Generation &raquo; (Lewis et al. 2020) : arxiv.org/abs/2005.11401</li>
-      <li>Dossier cheat-sheets du livrable (sources web fichées)</li>
-    </ul>
+    <header><div class="chap">12</div><div class="title">R&eacute;f&eacute;rences &amp; conclusion</div><div class="under"></div></header>
+    <main>
+      <div class="grid2">
+        <div class="panel">
+          <h3>SOURCES DIRECTES</h3>
+          <div class="mono">OpenAI : platform.openai.com/docs/guides/prompt-engineering
+Anthropic : docs.anthropic.com (Prompt Eng. Overview)
+Google/Gemini : ai.google.dev/gemini-api/docs/prompting-intro
+DAIR AI : promptingguide.ai
+Microsoft Azure : learn.microsoft.com (PE best practices)
+ArXiv CoT : arxiv.org/abs/2201.11903 (Wei et al. 2022)
+ArXiv RAG : arxiv.org/abs/2005.11401 (Lewis et al. 2020)</div>
+        </div>
+        <div class="panel">
+          <h3>CHEAT SHEETS (dossier livrable)</h3>
+          <div class="mono">3 PDF t&eacute;l&eacute;charg&eacute;s dans 3-cheat-sheets/ :
+ &middot; ipwithease.com (formats + types)
+ &middot; Google cheat sheet avril 2025
+ &middot; RPATech business users
++ README_sources.md avec tous les liens.</div>
+        </div>
+      </div>
+      <div class="example" style="margin-top:20px;">LE &Agrave; RETENIR : objectif &rarr; syntaxe &rarr; exemple. Tester, mesurer, versionner. Supervision humaine sur tout ce qui est critique.</div>
+    </main>
+    <footer><span id="bar"></span><span>18 / 18</span></footer>
   </section>
 </div>
 
+<nav aria-label="Navigation">
+  <button id="prev" title="Pr&eacute;c&eacute;dent">&#8592;</button>
+  <span class="cnt" id="cnt">1 / 18</span>
+  <div class="dots" id="dots"></div>
+  <button id="next" title="Suivant">&#8594;</button>
+</nav>
+
 <script>
-  var slides = document.querySelectorAll('.slide');
-  var i = 0;
-  var page = document.getElementById('page');
-  function show(n){
-    slides[i].classList.remove('active');
-    i = (n + slides.length) % slides.length;
-    slides[i].classList.add('active');
-    page.textContent = (i+1) + ' / ' + slides.length;
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var cnt = document.getElementById('cnt');
+  var dotsWrap = document.getElementById('dots');
+  var dots = [];
+  var total = slides.length;
+
+  for (var d = 0; d < total; d++) {
+    var b = document.createElement('button');
+    b.className = 'dot';
+    (function(idx){ b.addEventListener('click', function(){ go(idx); }); })(d);
+    dotsWrap.appendChild(b);
+    dots.push(b);
   }
+
+  function sync() {
+    slideIdx = Math.max(0, Math.min(total - 1, slideIdx));
+    for (var s = 0; s < total; s++) {
+      slides[s].classList.toggle('active', s === slideIdx);
+      dots[s].classList.toggle('on', s === slideIdx);
+    }
+    cnt.textContent = (slideIdx + 1) + ' / ' + total;
+  }
+
+  function go(n) { slideIdx = n; sync(); }
+  function next() { go(slideIdx + 1); }
+  function prev() { go(slideIdx - 1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
   document.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowRight' || e.key === ' ') show(i+1);
-    if(e.key === 'ArrowLeft') show(i-1);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    if (e.key === 'Home') { go(0); }
+    if (e.key === 'End') { go(total - 1); }
   });
-  document.querySelector('.deck').addEventListener('click', show.bind(null, i+1));
+
+  var touchX = null;
+  document.addEventListener('touchstart', function(e){ touchX = e.changedTouches[0].clientX; });
+  document.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+  });
+
+  var slideIdx = 0;
+  sync();
+})();
 </script>
 </body>
 </html>

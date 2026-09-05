@@ -6,9 +6,9 @@ Dossier de livrables conforme au sujet : **p1ia_groupe-1_pompt-engineering**
 
 | Livrable | Fichier | Description |
 |---|---|---|
-| 1. Document de synthèse | `1-synthese/synthese_prompt_engineering.pdf` | PDF détaillé (7 pages), les 12 chapitres du sujet expliqués avec du texte, des exemples de prompts et des tableaux |
-| 2. Diapositives PowerPoint | `2-diapositives/diapositives_prompt_engineering.pptx` | 18 diapositives, peu de texte, mots-clés ; pour chaque concept : objectif (pourquoi ?), syntaxe (comment ?), exemple |
-| 2 bis. Diapositives HTML | `2-diapositives/diapositives_prompt_engineering.html` | Même présentation en HTML (ouvrir dans un navigateur, navigation avec les flèches ← →) |
+| 1. Document de synthèse | `1-synthese/synthese_prompt_engineering.pdf` | PDF détaillé (8 pages), les 12 chapitres expliqués avec du texte, des tableaux et des exemples de prompts ; techniques avancées (self-consistency, Tree-of-Thought, ReAct, step-back, APE) inclues |
+| 2. Diapositives PowerPoint | `2-diapositives/diapositives_prompt_engineering.pptx` | 18 diapositives denses, peu de texte, mots-clés ; pour chaque concept : objectif (pourquoi ?), syntaxe (comment ?), exemple |
+| 2 bis. Diapositives HTML | `2-diapositives/diapositives_prompt_engineering.html` | Même présentation en HTML (ouvrir dans un navigateur : boutons ◄ ►, flèches du clavier, pastilles de progression, balayage tactile) |
 | 3. Cheat sheets | `3-cheat-sheets/` | 3 cheat sheets téléchargées sur Internet + `README_sources.md` avec tous les liens |
 
 ## Les 12 chapitres couverts
@@ -16,7 +16,7 @@ Dossier de livrables conforme au sujet : **p1ia_groupe-1_pompt-engineering**
 1. Prérequis sur les LLM (contexte, tokens, fenêtre de contexte, temperature, max tokens, top-p, ...)
 2. Introduction au Prompt Engineering (définition d'un prompt, discipline, importance)
 3. Structure d'un prompt (rôle, contexte, tâche, données, contraintes, format de sortie)
-4. Techniques de prompting (zero-shot, one-shot, few-shot, Chain-of-Thought, structured prompting)
+4. Techniques de prompting (zero-shot, one-shot, few-shot, Chain-of-Thought, structured prompting, + avancées : self-consistency, Tree-of-Thought, step-back, ReAct, APE)
 5. Prompt Engineering et raisonnement (décomposition, self-check / vérification)
 6. Sorties structurées (pourquoi, formats, validation)
 7. Prompts pour les applications métier (résumé, traduction, classification, extraction, génération, code)
