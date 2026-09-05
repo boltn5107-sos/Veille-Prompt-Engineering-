@@ -6,7 +6,7 @@ Dossier de livrables conforme au sujet : **p1ia_groupe-1_pompt-engineering**
 
 | Livrable | Fichier | Description |
 |---|---|---|
-| 1. Document de synthèse | `1-synthese/synthese_prompt_engineering.pdf` | PDF détaillé (8 pages), les 12 chapitres expliqués avec du texte, des tableaux et des exemples de prompts ; techniques avancées (self-consistency, Tree-of-Thought, ReAct, step-back, APE) inclues |
+| 1. Document de synthèse | `1-synthese/synthese_prompt_engineering.pdf` | PDF professionnel (12 pages) : couverture, sommaire paginé, en-têtes/pieds de page, thème bleu marine / doré ; les 12 chapitres détaillés avec tableaux, encadrés « EXEMPLE » et « À RETENIR », exemples de prompts et références cliquables |
 | 2. Diapositives PowerPoint | `2-diapositives/diapositives_prompt_engineering.pptx` | 18 diapositives denses, peu de texte, mots-clés ; pour chaque concept : objectif (pourquoi ?), syntaxe (comment ?), exemple |
 | 2 bis. Diapositives HTML | `2-diapositives/diapositives_prompt_engineering.html` | Même présentation en HTML (ouvrir dans un navigateur : boutons ◄ ►, flèches du clavier, pastilles de progression, balayage tactile) |
 | 3. Cheat sheets | `3-cheat-sheets/` | 3 cheat sheets téléchargées sur Internet + `README_sources.md` avec tous les liens |
